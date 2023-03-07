@@ -1,6 +1,10 @@
 var express = require('express');
-var bookControler = require('../controller/bookController');
+var book_Controller = require('../controller/bookController');
 const router = express.Router()
 
-router.get("/books" ,bookControler.getbook )
+router
+ .get("/books/get_books" ,book_Controller.get_books )
+ .post("/books/creat_book" ,book_Controller.creat_book )
+ .put("/books/update_book" ,book_Controller.update_book )
+ .delete("/books/delete_book" ,book_Controller.delete_book )
 module.exports = router;
