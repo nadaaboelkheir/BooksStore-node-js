@@ -1,5 +1,6 @@
 var book_model = require("../model/bookModel")
 var db_query = require('../db/queries')
+var code_utility = require('../utill/utillity')
 var db_connection = require('../db/connection')
 
 exports.get_books = async (req, res) => {
@@ -80,6 +81,7 @@ exports.delete_book = async (req, res) => {
         }
         var book_id = db_query.queries.GET_ID_BOOK
         var GET_ID_BOOK = await db_connection.query(book_id, [BOOK_ID])
+
         if ((GET_ID_BOOK.rows[0].count) == "0") {
             return res.status(500).send("not exist in database")
         }
