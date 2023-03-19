@@ -16,6 +16,32 @@ exports.get_books = async (req, res) => {
 
 
 }
+
+exports.book_desc = async (req, res) => {
+    try {
+        var BOOK_ID = req.params.BOOK_ID
+        if (!BOOK_ID) {
+            return res.status(500).send("fill the required fields")
+        }
+        var book_id = db_query.queries.GET_ID_BOOK
+        var GET_ID_BOOK = await db_connection.query(book_id, [BOOK_ID])
+        if ((GET_ID_BOOK.rows[0].count) == "0") {
+            return res.status(500).send("not exist in database")
+        }
+       var value=[BOOK_ID]
+        var BOOK_DETAILS = db_query.queries.GET_BOOK_DETAILS
+       
+        var result = await db_connection.query(BOOK_DETAILS,value)
+        return res.status(200).send(JSON.stringify(result.rows));
+    }
+    catch (err) {
+        return res.status(500).send("faild to get book")
+    }
+
+
+
+}
+
 exports.creat_book = async (req, res) => {
     try {
         var BOOK_TITLE = req.body.BOOK_TITLE
